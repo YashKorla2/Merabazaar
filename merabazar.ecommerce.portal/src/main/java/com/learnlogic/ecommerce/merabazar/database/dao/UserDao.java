@@ -9,7 +9,6 @@ public interface UserDao {
 	public void createUser(Users users);
 	public void updateUser(Users users);
 	public List<Users> retriveAll();
-	public List<Users> retriveById(Users user);
-	
+	public Users retriveById(Long userId);
 
 }
