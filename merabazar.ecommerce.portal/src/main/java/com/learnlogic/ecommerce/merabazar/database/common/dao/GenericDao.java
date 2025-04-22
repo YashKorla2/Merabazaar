@@ -3,44 +3,39 @@ package com.learnlogic.ecommerce.merabazar.database.common.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.criterion.Criterion;
-
 public interface GenericDao<T, ID extends Serializable> {
 
-	 public T retrieveById(ID id);
+    T findById(ID id);
 
-	    public ID create(T entity);
+    ID create(T entity);
 
-	    public void createOrUpdate(T entity);
+    T createOrUpdate(T entity);
 
-	    public void update(T entity);
+    T update(T entity);
 
-	    public void delete(T entity);
+    void delete(T entity);
 
-	    public void deleteById(ID id);
+    void deleteById(ID id);
 
-	    public List<T> retrieveAll();
+    List<T> findAll();
 
-	    public List<T> findAll(String orderBy);
+    List<T> findAll(String orderBy);
 
-	    public List<T> findFiltered(String property, Object filter);
+    List<T> findFiltered(String property, Object filter);
 
-	    public List<T> findFiltered(String property, Object filter, String orderBy);
+    List<T> findFiltered(String property, Object filter, String orderBy);
 
-	    public List<T> findLikeFiltered(String property, Object filter);
+    List<T> findLikeFiltered(String property, Object filter);
 
-	    public List<T> findLikeFiltered(String property, Object filter, String orderBy);
+    List<T> findLikeFiltered(String property, Object filter, String orderBy);
 
-	    public T findUniqueFiltered(String property, Object filter);
+    T findUniqueFiltered(String property, Object filter);
 
-	    public T findUniqueFiltered(String property, Object filter, String orderBy);
+    T findUniqueFiltered(String property, Object filter, String orderBy);
 
-	    public List<T> findByCriteria(Criterion... criterion);
-
-	    public List<T> findByCriteriaList(List<Criterion> criterions);
-
-	    public List<T> findByCriteriaList(List<Criterion> criterions, Boolean isSearch);
-
+    List<T> findByAttributes(String jpql, Object... params);
 	
+    List<T> findByAttributes(String jpql, List<Object> params);
 	
+    List<T> findByAttributes(String jpql, List<Object> params, boolean isSearch);
 }
