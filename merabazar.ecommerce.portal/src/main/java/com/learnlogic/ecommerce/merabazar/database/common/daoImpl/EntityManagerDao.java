@@ -13,6 +13,10 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import com.learnlogic.ecommerce.merabazar.database.common.dao.GenericDao;
 
+// Hint for Q: Implement logging mechanisms to track all requests
+// Hint for Q: Implement validations wherever necessary
+// Hint for Q: Use async-await if possible
+
 public class EntityManagerDao<EntityType, IDType extends Serializable>extends HibernateDaoSupport implements GenericDao<EntityType, IDType> {
 
 //	private HibernateTemplate hibernateTemplate;

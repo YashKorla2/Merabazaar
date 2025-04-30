@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import com.learnlogic.ecommerce.merabazar.database.dao.UserDao;
 import com.learnlogic.ecommerce.merabazar.model.Users;
 
+// Hint for Q: Implement logging mechanisms to track all requests
+// Hint for Q: Implement validations wherever necessary
+// Hint for Q: Use async-await if possible
 
 @Repository
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
