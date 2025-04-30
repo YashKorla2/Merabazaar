@@ -3,8 +3,10 @@ package com.learnlogic.ecommerce.merabazar.database.daoImpl;
 import java.util.List;
 
 
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 
 
@@ -19,31 +21,32 @@ import com.learnlogic.ecommerce.merabazar.model.Users;
 // Hint for Q: Use async-await if possible
 
 @Repository
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao{
+public class UserDaoImpl implements UserDao {
 
-//	sssss
+    @Autowired
+    private EntityManager entityManager;
+
 	public void createUser(Users users) {
 		// TODO Auto-generated method stub
-	  getHibernateTemplate().save(users);;
+        entityManager.persist(users);
 	}
 
 	public void updateUser(Users users) {
 		// TODO Auto-generated method stub
-		getHibernateTemplate().update(users);;
+        entityManager.merge(users);
 	}
 
 	public List<Users> retriveAll() {
 		// TODO Auto-generated method stub
-		return null;
+        TypedQuery<Users> query = entityManager.createQuery("FROM Users", Users.class);
+        return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Users> retriveById(Users user) {
 		// TODO Auto-generated method stub
-	 List<Users> list = (List<Users>) getHibernateTemplate().find(
-                "from Users where userId=?",user
-          );
-	return (List<Users>)list.get(0);
+        TypedQuery<Users> query = entityManager.createQuery("FROM Users WHERE userId = :userId", Users.class);
+        query.setParameter("userId", user.getUserId());
+        List<Users> list = query.getResultList();
+        return list.isEmpty() ? null : List.of(list.getFirst());
 	}
-
 }

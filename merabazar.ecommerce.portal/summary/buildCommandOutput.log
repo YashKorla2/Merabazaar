@@ -1,0 +1,53 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< com.learnlogic:merabazar.ecommerce.portal >--------------
+[INFO] Building merabazar.ecommerce.portal Maven Webapp 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ merabazar.ecommerce.portal ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ merabazar.ecommerce.portal ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] Copying 20 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ merabazar.ecommerce.portal ---
+[INFO] Changes detected - recompiling the module! :dependency
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 17 source files with javac [debug deprecation release 21] to target/classes
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[130,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[130,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[140,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[140,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[222,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Orders.java:[222,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[197,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[197,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[315,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[315,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[325,10] jakarta.persistence.Temporal in jakarta.persistence has been deprecated
+[WARNING] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/model/Users.java:[325,19] jakarta.persistence.TemporalType in jakarta.persistence has been deprecated
+[INFO] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/database/common/daoImpl/EntityManagerDao.java: /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/database/common/daoImpl/EntityManagerDao.java uses unchecked or unsafe operations.
+[INFO] /ramdisk/code/src/main/java/com/learnlogic/ecommerce/merabazar/database/common/daoImpl/EntityManagerDao.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ merabazar.ecommerce.portal ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /ramdisk/code/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ merabazar.ecommerce.portal ---
+[INFO] Changes detected - recompiling the module! :dependency
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug deprecation release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.489 s
+[INFO] Finished at: 2025-04-30T07:23:24Z
+[INFO] ------------------------------------------------------------------------

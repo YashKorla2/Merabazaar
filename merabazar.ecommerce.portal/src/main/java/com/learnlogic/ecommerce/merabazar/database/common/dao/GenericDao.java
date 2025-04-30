@@ -2,8 +2,7 @@ package com.learnlogic.ecommerce.merabazar.database.common.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.criterion.Criterion;
+import jakarta.persistence.criteria.Predicate;
 
 public interface GenericDao<T, ID extends Serializable> {
 
@@ -35,12 +34,9 @@ public interface GenericDao<T, ID extends Serializable> {
 
 	    public T findUniqueFiltered(String property, Object filter, String orderBy);
 
-	    public List<T> findByCriteria(Criterion... criterion);
-
-	    public List<T> findByCriteriaList(List<Criterion> criterions);
-
-	    public List<T> findByCriteriaList(List<Criterion> criterions, Boolean isSearch);
-
+    public List<T> findByCriteria(Predicate... predicates);
 	
+    public List<T> findByCriteriaList(List<Predicate> predicates);
 	
+    public List<T> findByCriteriaList(List<Predicate> predicates, Boolean isSearch);
 }

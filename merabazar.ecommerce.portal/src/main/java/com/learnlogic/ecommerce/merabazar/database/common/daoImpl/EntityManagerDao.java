@@ -3,13 +3,15 @@ package com.learnlogic.ecommerce.merabazar.database.common.daoImpl;
 import java.io.Serializable;
 import java.util.List;
 
-//import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
-
-
-import org.hibernate.criterion.Criterion;
-import org.springframework.orm.hibernate4.HibernateTemplate;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.learnlogic.ecommerce.merabazar.database.common.dao.GenericDao;
 
@@ -17,117 +19,112 @@ import com.learnlogic.ecommerce.merabazar.database.common.dao.GenericDao;
 // Hint for Q: Implement validations wherever necessary
 // Hint for Q: Use async-await if possible
 
-public class EntityManagerDao<EntityType, IDType extends Serializable>extends HibernateDaoSupport implements GenericDao<EntityType, IDType> {
+@Repository
+public class EntityManagerDao<EntityType, IDType extends Serializable> implements GenericDao<EntityType, IDType> {
 
-//	private HibernateTemplate hibernateTemplate;
+    @PersistenceContext
+    protected EntityManager entityManager;
 	
 	 private Class<EntityType> persistentClass ;
 	
-	
-//	public Class<EntityType> getEntity() {
-//		return this.entity=entity;
-//	}
-//	public HibernateTemplate getHibernateTemplate() {
-//		return this.hibernateTemplate;
-//	}
-
-	    /**
-	     * get the persistent class
-	     * @return
-	     */
 	    public Class<EntityType> getPersistentClass() {
 	        return persistentClass;
 	    }
 
-	
 	public EntityType retrieveById(IDType id) {
-		// TODO Auto-generated method stub
-		return (EntityType) getHibernateTemplate().get(getPersistentClass(), id);
+        return entityManager.find(getPersistentClass(), id);
 	}	
 
-	@SuppressWarnings("unchecked")
 	public IDType create(EntityType entity) {
-		// TODO Auto-generated method stub
-		return (IDType) getHibernateTemplate().save(entity);
+        entityManager.persist(entity);
+        return (IDType) entityManager.getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
 	}
 
 	public void createOrUpdate(EntityType entity) {
-		// TODO Auto-generated method stub
-		
+        entityManager.merge(entity);
 	}
 
 	public void update(EntityType entity) {
-		// TODO Auto-generated method stub
-		
+        entityManager.merge(entity);
 	}
 
 	public void delete(EntityType entity) {
-		// TODO Auto-generated method stub
-		
+        entityManager.remove(entity);
 	}
 
 	public void deleteById(IDType id) {
-		// TODO Auto-generated method stub
-		
+        EntityType entity = retrieveById(id);
+        if (entity != null) {
+            delete(entity);
+        }
 	}
 
 	public List<EntityType> retrieveAll() {
-		// TODO Auto-generated method stub
-		return null;
+        CriteriaQuery<EntityType> criteriaQuery = entityManager.getCriteriaBuilder().createQuery(getPersistentClass());
+        criteriaQuery.from(getPersistentClass());
+        return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
 	public List<EntityType> findAll(String orderBy) {
-		// TODO Auto-generated method stub
-		return null;
+        // Implementation depends on how you want to handle ordering
+        return retrieveAll();
 	}
 
 	public List<EntityType> findFiltered(String property, Object filter) {
-		// TODO Auto-generated method stub
-		return null;
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<EntityType> criteriaQuery = cb.createQuery(getPersistentClass());
+        Root<EntityType> root = criteriaQuery.from(getPersistentClass());
+        criteriaQuery.where(cb.equal(root.get(property), filter));
+        return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	public List<EntityType> findFiltered(String property, Object filter,
-			String orderBy) {
-		// TODO Auto-generated method stub
-		return null;
+    public List<EntityType> findFiltered(String property, Object filter, String orderBy) {
+        // Implementation depends on how you want to handle ordering
+        return findFiltered(property, filter);
 	}
 
 	public List<EntityType> findLikeFiltered(String property, Object filter) {
-		// TODO Auto-generated method stub
-		return null;
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<EntityType> criteriaQuery = cb.createQuery(getPersistentClass());
+        Root<EntityType> root = criteriaQuery.from(getPersistentClass());
+        criteriaQuery.where(cb.like(root.get(property), "%" + filter + "%"));
+        return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	public List<EntityType> findLikeFiltered(String property, Object filter,
-			String orderBy) {
-		// TODO Auto-generated method stub
-		return null;
+    public List<EntityType> findLikeFiltered(String property, Object filter, String orderBy) {
+        // Implementation depends on how you want to handle ordering
+        return findLikeFiltered(property, filter);
 	}
 
 	public EntityType findUniqueFiltered(String property, Object filter) {
-		// TODO Auto-generated method stub
-		return null;
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<EntityType> criteriaQuery = cb.createQuery(getPersistentClass());
+        Root<EntityType> root = criteriaQuery.from(getPersistentClass());
+        criteriaQuery.where(cb.equal(root.get(property), filter));
+        TypedQuery<EntityType> query = entityManager.createQuery(criteriaQuery);
+        List<EntityType> results = query.getResultList();
+        return results.isEmpty() ? null : results.get(0);
 	}
 
-	public EntityType findUniqueFiltered(String property, Object filter,
-			String orderBy) {
-		// TODO Auto-generated method stub
-		return null;
+    public EntityType findUniqueFiltered(String property, Object filter, String orderBy) {
+        // Implementation depends on how you want to handle ordering
+        return findUniqueFiltered(property, filter);
 	}
 
-	public List<EntityType> findByCriteria(Criterion... criterion) {
-		// TODO Auto-generated method stub
-		return null;
+    public List<EntityType> findByCriteria(Predicate... predicates) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<EntityType> criteriaQuery = cb.createQuery(getPersistentClass());
+        Root<EntityType> root = criteriaQuery.from(getPersistentClass());
+        criteriaQuery.where(predicates);
+        return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	public List<EntityType> findByCriteriaList(List<Criterion> criterions) {
-		// TODO Auto-generated method stub
-		return null;
+    public List<EntityType> findByCriteriaList(List<Predicate> predicates) {
+        return findByCriteria(predicates.toArray(new Predicate[0]));
 	}
 
-	public List<EntityType> findByCriteriaList(List<Criterion> criterions,
-			Boolean isSearch) {
-		// TODO Auto-generated method stub
-		return null;
+    public List<EntityType> findByCriteriaList(List<Predicate> predicates, Boolean isSearch) {
+        // Implementation depends on how you want to handle the isSearch parameter
+        return findByCriteriaList(predicates);
 	} 
-
 }
