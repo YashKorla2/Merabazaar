@@ -1,0 +1,41 @@
+name: Q Code Transformation
+
+on:
+  push:
+    branches:
+      - 'Q-TRANSFORM-issue-*'
+
+jobs:
+  q-code-transformation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'  # Recommended for Java 17
+
+      - name: Set Maven options
+        run: echo "MAVEN_CLI_OPTS=-B -ntp" >> $GITHUB_ENV
+
+      - name: Build the project and verify
+        run: mvn ${{ env.MAVEN_CLI_OPTS }} clean verify
+
+      - name: Copy project dependencies
+        run: |
+          mkdir -p dependencies
+          mvn ${{ env.MAVEN_CLI_OPTS }} dependency:copy-dependencies \
+            -DoutputDirectory=dependencies \
+            -Dmdep.useRepositoryLayout=true \
+            -Dmdep.copyPom=true \
+            -Dmdep.addParentPoms=true
+
+      - name: Upload artifacts for Amazon Q
+        uses: actions/upload-artifact@v4
+        with:
+          name: q-code-transformation-dependencies
+          path: dependencies

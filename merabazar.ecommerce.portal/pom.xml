@@ -159,5 +159,14 @@
 	</dependencies>
 	<build>
 		<finalName>merabazar.ecommerce.portal</finalName>
+		<plugins>
+        <!-- Maven Compiler Plugin for Java 21 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+        </plugin>
+    </plugins>
+
 	</build>
 </project>
