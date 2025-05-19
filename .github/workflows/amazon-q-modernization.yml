@@ -23,11 +23,11 @@ jobs:
         run: echo "MAVEN_CLI_OPTS=-B -ntp" >> $GITHUB_ENV
 
       - name: Build the project and verify
-        working-directory: ./merabazaar.ecommerce.portal
+        working-directory: merabazaar.ecommerce.portal
         run: mvn ${{ env.MAVEN_CLI_OPTS }} clean verify
 
       - name: Copy project dependencies
-        working-directory: ./merabazaar.ecommerce.portal
+        working-directory: merabazaar.ecommerce.portal
         run: |
           mkdir -p dependencies
           mvn ${{ env.MAVEN_CLI_OPTS }} dependency:copy-dependencies \
