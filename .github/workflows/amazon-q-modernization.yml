@@ -19,6 +19,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: List current directory structure
+        run: |
+          pwd
+          ls -la
+
+      - name: List contents of project folder
+        run: ls -la merabazaar.ecommerce.portal
+
+
       - name: Set Maven options
         run: echo "MAVEN_CLI_OPTS=-B -ntp" >> $GITHUB_ENV
 
