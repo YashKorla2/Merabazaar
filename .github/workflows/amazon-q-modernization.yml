@@ -17,15 +17,17 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'  # Recommended for Java 17
+          distribution: 'temurin'
 
       - name: Set Maven options
         run: echo "MAVEN_CLI_OPTS=-B -ntp" >> $GITHUB_ENV
 
       - name: Build the project and verify
+        working-directory: ./merabazaar.ecommerce.portal
         run: mvn ${{ env.MAVEN_CLI_OPTS }} clean verify
 
       - name: Copy project dependencies
+        working-directory: ./merabazaar.ecommerce.portal
         run: |
           mkdir -p dependencies
           mvn ${{ env.MAVEN_CLI_OPTS }} dependency:copy-dependencies \
@@ -38,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: q-code-transformation-dependencies
-          path: dependencies
+          path: merabazaar.ecommerce.portal/dependencies
