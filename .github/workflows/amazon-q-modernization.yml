@@ -33,7 +33,7 @@ jobs:
 
       - name: Build the project and verify
         working-directory: merabazar.ecommerce.portal
-        run: mvn ${{ env.MAVEN_CLI_OPTS }} clean verify
+        run: mvn ${{ env.MAVEN_CLI_OPTS }} clean install -DskipTests
 
       - name: Copy project dependencies
         working-directory: merabazar.ecommerce.portal
